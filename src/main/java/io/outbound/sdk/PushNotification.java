@@ -222,37 +222,21 @@ public class PushNotification implements Parcelable {
         return payload;
     }
 
-    public String getLgNotifFolder() {
-        return lgNotifFolder;
-    }
+    public String getLgNotifFolder() { return lgNotifFolder; }
 
-    public String getLgNotifImage() {
-        return lgNotifImage;
-    }
+    public String getLgNotifImage() { return lgNotifImage; }
 
-    public String getSmNotifFolder() {
-        return smNotifFolder;
-    }
+    public String getSmNotifFolder() { return smNotifFolder; }
 
-    public String getSmNotifImage() {
-        return smNotifImage;
-    }
+    public String getSmNotifImage() { return smNotifImage; }
 
-    public Boolean getSoundSilent() {
-        return soundSilent;
-    }
+    public Boolean getSoundSilent() { return soundSilent; }
 
-    public Boolean getSoundDefault() {
-        return soundDefault;
-    }
+    public Boolean getSoundDefault() { return soundDefault; }
 
-    public String getSoundFile() {
-        return soundFile;
-    }
+    public String getSoundFile() { return soundFile; }
 
-    public String getSoundFolder() {
-        return soundFolder;
-    }
+    public String getSoundFolder() { return soundFolder; }
 
     /**
      * Determine if the deeplink in the notification (if any) has been handled by the SDK or not.
