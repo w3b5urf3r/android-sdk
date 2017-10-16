@@ -1,19 +1,17 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 
-configurations {
-    deployAars
+buildscript {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
+    }
 }
-
-group = "io.outbound.sdk"
-version = "0.2.4"
-def siteUrl = 'https://outboundio.github.io/android-sdk'
-def gitUrl = 'https://github.com/outboundio/android-sdk.git'
+repositories {
+    mavenCentral()
+}
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 14
@@ -40,55 +38,5 @@ dependencies {
     compile 'com.android.support:support-annotations:22.2.0'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile "com.google.firebase:firebase-messaging:9.+"
-}
-
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                name name
-                url siteUrl
-                licenses {
-                    license {
-                        name 'MIT License'
-                        url 'http://www.opensource.org/licenses/mit-license.php'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'tang8330'
-                        name 'Robin Tang'
-                        email 'robin@outbound.io'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-
-                }
-            }
-        }
-    }
-}
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = "outbound-android-sdk"
-        userOrg = "outbound"
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["MIT"]
-        publish = false
-    }
+    compile "com.google.firebase:firebase-messaging:11.+"
 }

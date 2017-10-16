@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Set;
-import java.util.StringTokenizer;
 
 /**
  * The PushNotification represents one notification send from Outbound to the device. A PushNotification
@@ -44,7 +43,7 @@ public class PushNotification implements Parcelable {
     private boolean silent;
 
     private boolean linkHandled = false;
-    private  boolean mainActivityLaunched = false;
+    private boolean mainActivityLaunched = false;
 
     private int id;
     private String instanceId;
@@ -62,7 +61,9 @@ public class PushNotification implements Parcelable {
     private String soundFolder;
     private JSONObject payload;
 
-    /** Required methods to implement {@link android.os.Parcelable} */
+    /**
+     * Required methods to implement {@link android.os.Parcelable}
+     */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public PushNotification createFromParcel(Parcel in) {
             return new PushNotification(in);
@@ -95,8 +96,8 @@ public class PushNotification implements Parcelable {
         data.putString(LG_NOTIF_IMG_FIELD, lgNotifImage);
         data.putString(SM_NOTIF_FOLDER_FIELD, smNotifFolder);
         data.putString(SM_NOTIF_IMG_FIELD, smNotifImage);
-        data.putBoolean(SOUND_DEFAULT, soundDefault);
-        data.putBoolean(SOUND_SILENT, soundSilent);
+        data.putString(SOUND_DEFAULT, soundDefault ? "true" : "false");
+        data.putString(SOUND_SILENT, soundSilent ? "true" : "false");
         data.putString(SOUND_FILE_FIELD, soundFile);
         data.putString(SOUND_FOLDER_FIELD, soundFolder);
         if (payload != null) {
@@ -112,7 +113,7 @@ public class PushNotification implements Parcelable {
 
     public PushNotification(Bundle data) {
         Set<String> keys = data.keySet();
-        for(String key : keys) {
+        for (String key : keys) {
             switch (key) {
                 case INSTANCE_ID_FIELD:
                     this.instanceId = data.getString(key);
@@ -154,10 +155,10 @@ public class PushNotification implements Parcelable {
                     this.smNotifImage = data.getString(key);
                     break;
                 case SOUND_SILENT:
-                    this.soundSilent = data.getBoolean(key);
+                    this.soundSilent = data.containsKey(key) && data.getString(key).equals("true");
                     break;
                 case SOUND_DEFAULT:
-                    this.soundDefault = data.getBoolean(key);
+                    this.soundDefault = data.containsKey(key) && data.getString(key).equals("true");
                     break;
                 case SOUND_FILE_FIELD:
                     this.soundFile = data.getString(key);
@@ -221,21 +222,37 @@ public class PushNotification implements Parcelable {
         return payload;
     }
 
-    public String getLgNotifFolder() { return lgNotifFolder; }
+    public String getLgNotifFolder() {
+        return lgNotifFolder;
+    }
 
-    public String getLgNotifImage() { return lgNotifImage; }
+    public String getLgNotifImage() {
+        return lgNotifImage;
+    }
 
-    public String getSmNotifFolder() { return smNotifFolder; }
+    public String getSmNotifFolder() {
+        return smNotifFolder;
+    }
 
-    public String getSmNotifImage() { return smNotifImage; }
+    public String getSmNotifImage() {
+        return smNotifImage;
+    }
 
-    public Boolean getSoundSilent() { return soundSilent; }
+    public Boolean getSoundSilent() {
+        return soundSilent;
+    }
 
-    public Boolean getSoundDefault() { return soundDefault; }
+    public Boolean getSoundDefault() {
+        return soundDefault;
+    }
 
-    public String getSoundFile() { return soundFile; }
+    public String getSoundFile() {
+        return soundFile;
+    }
 
-    public String getSoundFolder() { return soundFolder; }
+    public String getSoundFolder() {
+        return soundFolder;
+    }
 
     /**
      * Determine if the deeplink in the notification (if any) has been handled by the SDK or not.
